@@ -1,5 +1,5 @@
 # Exercise 02 Strings 
-### Deadline 24.03.2022
+### Deadline 28.03.2022
 
 Learn and use strings.
 
