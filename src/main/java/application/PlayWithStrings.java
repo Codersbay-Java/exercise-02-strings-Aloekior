@@ -19,8 +19,7 @@ public class PlayWithStrings {
 	 * @param lastname
 	 */
 	public static void printInitials(String firstname, String lastname) {
-		System.out.println(firstname.charAt(0));
-		System.out.println(lastname.charAt(0));
+		System.out.println(firstname.charAt(0) + "" + lastname.charAt(0));
 	}
 
 	/**
@@ -37,24 +36,26 @@ public class PlayWithStrings {
 	 * @return true if the values are anagrams, false otherwise.
 	 */
 	public static boolean areAnagrams(String value1, String value2) {
-		String word1 = value1.replaceAll("[^a-zA-Z0-9äöüÄÖÜ]", "");
-		String word2 = value2.replaceAll("[^a-zA-Z0-9äöüÄÖÜ]", "");
+		/*
+		 * String word1 = value1.replaceAll("[^a-zA-Z0-9äöüÄÖÜ]", ""); String word2 =
+		 * value2.replaceAll("[^a-zA-Z0-9äöüÄÖÜ]", "");
+		 */
 
-		if (word1.length() != word2.length()) {
-			return false;
-		}
+		/*
+		 * if (value1.length() != value2.length()) { return false; }
+		 * 
+		 * 
+		 * char[] value1Chars = value1.toCharArray(); char[] value2Chars =
+		 * value2.toCharArray();
+		 */
 
-		char[] arr1 = word1.toCharArray();
-		char[] arr2 = word2.toCharArray();
+		char[] value1Chars = removeJunk(value1).toCharArray();
+		char[] value2Chars = removeJunk(value2).toCharArray();
 
-		Arrays.sort(arr1);
-		Arrays.sort(arr2);
+		Arrays.sort(value1Chars);
+		Arrays.sort(value2Chars);
 
-		if (Arrays.equals(arr1, arr2)) {
-			return true;
-		}
-
-		return false;
+		return Arrays.equals(value1Chars, value2Chars);
 	}
 
 	/**
@@ -72,16 +73,28 @@ public class PlayWithStrings {
 	 * @return true if it is a palindrome, false otherwise.
 	 */
 	public static boolean isPalindrome(String value) {
-		String myString = value.replaceAll("[^a-zA-Z0-9äöüÄÖÜ]", "");
+		String myString = removeJunk(value);
 
+		/*
+		 * StringBuilder builder = new StringBuilder(); builder.append(myString);
+		 * builder.reverse(); String reverse = builder.toString();
+		 */
+
+		String reverse = new StringBuilder(myString).reverse().toString();
+
+		return myString.equalsIgnoreCase(reverse);
+	}
+
+	// input teacher: use method to remove special characters
+	private static String removeJunk(String input) {
 		StringBuilder builder = new StringBuilder();
-		builder.append(myString);
-		builder.reverse();
-		String myStringReverse = builder.toString();
+		char[] chars = input.toCharArray();
 
-		if (myString.equalsIgnoreCase(myStringReverse)) {
-			return true;
+		for (char c : chars) {
+			if (c > 56 && c != 59 && c != 63) {
+				builder.append(c);
+			}
 		}
-		return false;
+		return builder.toString();
 	}
 }
